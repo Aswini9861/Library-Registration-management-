@@ -1,0 +1,47 @@
+{% extends "library.html" %}
+{% block content %}
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+      <tr>
+          <td>ISBN NO</td>
+          <td>Title </td>
+          <td>Auther</td>
+          <td>Edition</td>
+
+          <td>
+            <a href="{% url 'book_insert' %}" class="btn btn-outline-success">
+            <i class="fas fa-plus"></i>Add New
+        </a>
+
+
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+        {% for p in book_list %}
+           <tr>
+               <td>{{p.ISBN}}</td>
+               <td>{{p.title}} </td>
+               <td>{{p.auther}}</td>
+               <td>{{p.edition}}</td>
+               <td>
+                <a href="{% url 'book_update' p.id %}" class="btn text-secondary px-0">
+                  <i class="far fa-edit fa-lg"></i>
+                </a>
+
+            <form action="{% url 'book_delete' p.id %}" method="post" class="d-inline">
+              {% csrf_token %}
+             <button type="submit" class="btn">
+              <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+            </button>
+            </form>
+          </td>
+        </tr>
+
+        {% endfor %}
+     </tbody>
+    </table>
+<p>Displaying List Of Books</p>
+
+{% endblock content %}
